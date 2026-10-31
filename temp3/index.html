@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aditi &amp; Jeet — Wedding Invitation</title>
+<meta name="description" content="With love, the Chourasia Family invites you to the wedding of Aditi &amp; Jeet.">
+<meta property="og:title" content="Aditi &amp; Jeet — Wedding Invitation">
+<meta property="og:description" content="You are invited. Celebrate the wedding of Aditi &amp; Jeet with the Chourasia Family.">
+<meta name="theme-color" content="#F2EEE7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231F1C19'/%3E%3Ctext x='32' y='43' font-family='Georgia' font-style='italic' font-size='28' fill='%23D9C7A0' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<noscript><style>.intro{display:none!important}body{overflow:auto!important;height:auto!important}</style></noscript>
+</head>
+<body class="is-locked">
+
+<!-- ================= ICONS ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ganesh" viewBox="0 0 64 64">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke-width="2.3" d="M24 22 C25 15, 29 12, 32 6.5 C35 12, 39 15, 40 22"/>
+      <path stroke-width="2.2" d="M22.5 23.5 Q32 19.5 41.5 23.5"/>
+      <circle cx="32" cy="3.6" r="1.7" fill="currentColor" stroke="none"/>
+      <path stroke-width="2.3" d="M23 26 C14 21, 6 28, 8 37 C9.5 43.5, 16.5 46, 24 41"/>
+      <path stroke-width="2.3" d="M41 26 C50 21, 58 28, 56 37 C54.5 43.5, 47.5 46, 40 41"/>
+      <path stroke-width="2.2" d="M24 25 C22 31.5, 23 37.5, 27.5 41.5"/>
+      <path stroke-width="2.2" d="M40 25 C42 31.5, 41 37.5, 36.5 41.5"/>
+      <path stroke-width="2" d="M26.5 32 q2 -2.2 4 0 M33.5 32 q2 -2.2 4 0"/>
+      <path stroke-width="2" d="M32 24.6 v3.6"/>
+      <path stroke-width="3.6" d="M32 34.5 C31.5 42, 32 48, 35.5 52 C38.5 55.2, 43 54.2, 43.6 50.6 C44 47.6, 41 46.6, 39.5 48.6"/>
+      <path stroke-width="2" d="M28.4 38.5 q-2.2 3 0 5.2"/>
+    </g>
+  </symbol>
+  <symbol id="ic-mehndi" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M26 7 C38 9, 42 25, 34 34 C28 41, 16 41, 12 34 C8 27, 14 21, 20 23 C25 25, 25 31, 20 31"/><circle cx="29" cy="16" r=".9" fill="currentColor"/><circle cx="33" cy="22" r=".9" fill="currentColor"/><circle cx="32" cy="28" r=".9" fill="currentColor"/><path d="M26 7 C23 4, 19 5, 18 8"/></g></symbol>
+  <symbol id="ic-haldi" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 26 H41 C41 35, 33.5 41, 24 41 C14.5 41, 7 35, 7 26Z"/><path d="M14 26 C17 19, 31 19, 34 26"/><path d="M24 7 v5 M13 11 l3 4 M35 11 l-3 4"/></g></symbol>
+  <symbol id="ic-sangeet" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 9 v21"/><circle cx="27" cy="31" r="4"/><path d="M31 9 l9 3 v5 l-9 -3"/><path d="M7 31 q4 -6 8 0 t8 0" opacity=".7"/></g></symbol>
+  <symbol id="ic-wedding" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="29" r="9"/><circle cx="29" cy="29" r="9"/><path d="M16 15.5 l3 -4 3 4 -3 4z"/></g></symbol>
+  <symbol id="ic-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<!-- ================= OPENING ================= -->
+<div class="intro" id="intro">
+  <div class="intro-scene" id="scene">
+    <div class="card3d" id="card3d">
+      <div class="c-layer c-base"></div>
+      <div class="c-layer c-frame"></div>
+      <div class="c-layer c-content">
+        <svg class="c-ganesh" aria-hidden="true"><use href="#ganesh"/></svg>
+        <p class="c-pre">The wedding of</p>
+        <p class="c-names">Aditi<em>&amp;</em>Jeet</p>
+        <span class="c-rule"></span>
+        <p class="c-sub">You are invited</p>
+      </div>
+      <div class="c-layer c-sheen"></div>
+    </div>
+    <div class="card-shadow" id="cardShadow"></div>
+  </div>
+
+  <button class="open-btn" id="openBtn" type="button" aria-label="Open the invitation">
+    <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="ring-bg" cx="36" cy="36" r="33"/><circle class="ring-fg" id="ringFg" cx="36" cy="36" r="33"/></svg>
+    <span>Open</span>
+  </button>
+  <p class="intro-hint">Tap to open your invitation</p>
+</div>
+
+<main id="main">
+
+<!-- 01 · HERO -->
+<section class="sec hero" id="hero">
+  <div class="inner">
+    <div class="blessing" data-hero>
+      <svg class="ganesh-mini" aria-hidden="true"><use href="#ganesh"/></svg>
+      <p class="hi mantra">॥ श्री गणेशाय नमः ॥</p>
+    </div>
+    <div class="stage" data-shape="lotus" data-scale="1.18"></div>
+    <p class="eyebrow" data-hero>Together with their families</p>
+    <h1 class="names">
+      <span class="nm" data-split="hero">Aditi</span>
+      <span class="amp" data-hero>&amp;</span>
+      <span class="nm" data-split="hero">Jeet</span>
+    </h1>
+    <p class="lead" data-hero>invite you to celebrate their wedding</p>
+    <p class="pill" data-hero><span></span>You are invited<span></span></p>
+  </div>
+  <div class="scroll-line" aria-hidden="true"><i></i></div>
+</section>
+
+<!-- 02 · INVITATION -->
+<section class="sec invite">
+  <div class="inner">
+    <p class="kicker" data-reveal>The Invitation</p>
+    <p class="hi shubh" data-reveal>शुभ विवाह</p>
+    <p class="statement" data-words>Two hearts, one journey, and a lifetime that begins with your blessings.</p>
+    <p class="body" data-reveal>With the blessings of Lord Ganesha and the love of our families, we joyfully invite you to celebrate the wedding of Aditi and Jeet. Your presence would make our happiness complete.</p>
+  </div>
+</section>
+
+<!-- 03 · THE COUPLE -->
+<section class="sec couple">
+  <div class="inner">
+    <p class="kicker" data-reveal>The Couple</p>
+    <article class="person from-left" data-tilt>
+      <span class="role">The Bride</span>
+      <h2>Aditi</h2>
+      <p class="rel">Daughter of</p>
+      <p class="par">Mr. Amit &amp; Mrs. Sangeeta Chourasia</p>
+      <i class="sheen"></i>
+    </article>
+    <div class="stage stage-sm" data-shape="rings"></div>
+    <article class="person from-right" data-tilt>
+      <span class="role">The Groom</span>
+      <h2>Jeet</h2>
+      <p class="rel">Son of</p>
+      <p class="par">Mr. Mahesh &amp; Mrs. Sangeeta Chourasia</p>
+      <i class="sheen"></i>
+    </article>
+  </div>
+</section>
+
+<!-- 04 · DATE + COUNTDOWN (dark) -->
+<section class="sec date dark" id="date">
+  <div class="bg"></div>
+  <div class="inner">
+    <p class="kicker light" data-reveal>Save the date</p>
+    <h2 class="title light" data-split>Scratch to reveal</h2>
+
+    <div class="scratch-wrap stage" data-shape="halo" data-scale="1.38">
+      <div class="scratch" id="scratch">
+        <div class="scratch-under">
+          <span class="su-top">Wednesday</span>
+          <span class="su-big">2 December</span>
+          <span class="su-year">2026</span>
+        </div>
+        <canvas aria-hidden="true"></canvas>
+      </div>
+    </div>
+    <button class="text-btn" id="revealBtn" type="button">Tap here to reveal instead</button>
+
+    <div class="mono3d" id="mono" aria-label="Aditi and Jeet monogram" role="img"></div>
+    <p class="mono-cap">Aditi <em>&amp;</em> Jeet</p>
+
+    <div class="count">
+      <p class="kicker light" data-reveal>Counting every heartbeat</p>
+      <div class="stage stage-sm" data-shape="heart"></div>
+      <div class="flips" id="flips" data-reveal>
+        <div class="flip-unit"><div class="flip" data-u="d"></div><span>Days</span></div>
+        <div class="flip-unit"><div class="flip" data-u="h"></div><span>Hours</span></div>
+        <div class="flip-unit"><div class="flip" data-u="m"></div><span>Minutes</span></div>
+        <div class="flip-unit"><div class="flip" data-u="s"></div><span>Seconds</span></div>
+      </div>
+      <p class="count-note" data-reveal>until 2 December 2026, 8:30 PM</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · FAMILY -->
+<section class="sec family">
+  <div class="inner">
+    <p class="kicker" data-reveal>With love &amp; blessings</p>
+    <div class="stage" data-shape="tree"></div>
+    <h2 class="title" data-split>The family behind the love</h2>
+
+    <div class="elders">
+      <div class="elder" data-tilt data-reveal>
+        <span class="tag">With blessings of</span>
+        <p>Shree Narayan Prasad Chourasia Ji</p>
+        <i class="sheen"></i>
+      </div>
+      <div class="elder" data-tilt data-reveal>
+        <span class="tag">In loving memory</span>
+        <p>Late Smt. Rama Chourasia Ji</p>
+        <i class="sheen"></i>
+      </div>
+    </div>
+
+    <ul class="fam-list">
+      <li data-reveal>Smt. Ranjini Devi Prasad Chourasia Ji</li>
+      <li data-reveal>Smt. Bhavana Amit Chourasia</li>
+      <li data-reveal>Smt. Kanchan Sapanraj Chourasia</li>
+      <li data-reveal>Smt. Mansee Paritosh Chourasia</li>
+      <li data-reveal>Mr. Piyush (Bittu) Chourasia</li>
+    </ul>
+
+    <div class="group" data-reveal>
+      <p class="g-title">Siblings</p>
+      <div class="chips">
+        <span>Aanchal Chourasia</span><span>Adhiraj Chourasia</span><span>Abhiraj Chourasia</span><span>Anantraj Chourasia</span>
+      </div>
+    </div>
+    <div class="group" data-reveal>
+      <p class="g-title">The little ones</p>
+      <p class="kids">Neeva <i>·</i> Jeeva <i>·</i> Pavit</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · INTERLUDE (dark) -->
+<section class="sec interlude dark">
+  <div class="bg"></div>
+  <div class="inner">
+    <p class="kicker light">From our family to yours</p>
+    <p class="scrub-text" id="scrubText">From our loved ones, for our loved ones. You just come — we’ll take care of the rest.</p>
+  </div>
+</section>
+
+<!-- 07 · TIMELINE (pinned 3D deck) -->
+<section class="sec events" id="events">
+  <div class="inner events-head">
+    <p class="kicker">Different rituals, same joy</p>
+    <h2 class="title">Wedding Timeline</h2>
+  </div>
+  <div class="deck" id="deck">
+
+    <article class="ev" data-cal-title="Mehndi Ceremony · Aditi &amp; Jeet" data-cal-start="20261130T063000Z" data-cal-end="20261130T113000Z" data-cal-loc="Own Residence, Deendayal Puram, Chhindwara, Madhya Pradesh">
+      <div class="ev-top"><span class="ev-idx">01</span><span class="ev-line"></span><svg class="ev-ico"><use href="#ic-mehndi"/></svg></div>
+      <p class="ev-date">Monday · 30 November 2026</p>
+      <h3>Mehndi Ceremony</h3>
+      <p class="ev-tag">Beautiful details, happy hearts &amp; endless conversations.</p>
+      <div class="ev-rows">
+        <p><span>Time</span>12:00 PM onwards</p>
+        <p><span>Venue</span>Own Residence, Deendayal Puram, Chhindwara</p>
+      </div>
+      <a class="ev-cal" target="_blank" rel="noopener">Add to calendar<svg><use href="#ic-arrow"/></svg></a>
+    </article>
+
+    <article class="ev" data-cal-title="Haldi Ceremony · Aditi &amp; Jeet" data-cal-start="20261201T073000Z" data-cal-end="20261201T113000Z" data-cal-loc="Own Residence, Deendayal Puram, Chhindwara, Madhya Pradesh">
+      <div class="ev-top"><span class="ev-idx">02</span><span class="ev-line"></span><svg class="ev-ico"><use href="#ic-haldi"/></svg></div>
+      <p class="ev-date">Tuesday · 1 December 2026</p>
+      <h3>Haldi Ceremony</h3>
+      <p class="ev-tag">Sunshine, laughter &amp; a little bit of yellow.</p>
+      <div class="ev-rows">
+        <p><span>Time</span>1:00 PM onwards</p>
+        <p><span>Venue</span>Own Residence, Deendayal Puram, Chhindwara</p>
+      </div>
+      <a class="ev-cal" target="_blank" rel="noopener">Add to calendar<svg><use href="#ic-arrow"/></svg></a>
+    </article>
+
+    <article class="ev" data-cal-title="Sangeet Night · Aditi &amp; Jeet" data-cal-start="20261201T150000Z" data-cal-end="20261201T183000Z" data-cal-loc="Own Residence, Deendayal Puram, Chhindwara, Madhya Pradesh">
+      <div class="ev-top"><span class="ev-idx">03</span><span class="ev-line"></span><svg class="ev-ico"><use href="#ic-sangeet"/></svg></div>
+      <p class="ev-date">Tuesday · 1 December 2026</p>
+      <h3>Sangeet Night</h3>
+      <p class="ev-tag">Music on, heels off — let the dance begin.</p>
+      <div class="ev-rows">
+        <p><span>Time</span>8:30 PM onwards</p>
+        <p><span>Venue</span>Own Residence, Deendayal Puram, Chhindwara</p>
+      </div>
+      <a class="ev-cal" target="_blank" rel="noopener">Add to calendar<svg><use href="#ic-arrow"/></svg></a>
+    </article>
+
+    <article class="ev ev-dark" data-cal-title="The Wedding · Aditi &amp; Jeet" data-cal-start="20261202T150000Z" data-cal-end="20261202T203000Z" data-cal-loc="Swagat Lawn, Iklehra, Madhya Pradesh">
+      <div class="ev-top"><span class="ev-idx">04</span><span class="ev-line"></span><svg class="ev-ico"><use href="#ic-wedding"/></svg></div>
+      <p class="ev-date">Wednesday · 2 December 2026</p>
+      <h3>The Wedding</h3>
+      <p class="ev-tag">Two hearts, seven vows, one forever.</p>
+      <div class="ev-rows">
+        <p><span>Time</span>8:30 PM</p>
+        <p><span>Venue</span>Swagat Lawn, Iklehra, M.P.</p>
+      </div>
+      <a class="ev-cal" target="_blank" rel="noopener">Add to calendar<svg><use href="#ic-arrow"/></svg></a>
+    </article>
+  </div>
+  <div class="deck-meta" aria-hidden="true">
+    <span id="deckNum">01</span><span class="deck-bar"><i id="deckBar"></i></span><span>04</span>
+  </div>
+</section>
+
+<!-- 08 · VENUE -->
+<section class="sec venue">
+  <div class="inner">
+    <p class="kicker" data-reveal>The Venue</p>
+    <div class="stage" data-shape="arch"></div>
+    <h2 class="title big" data-split>Swagat Lawn</h2>
+    <p class="addr" data-reveal>Iklehra, Madhya Pradesh</p>
+    <p class="when" data-reveal>Wednesday, 2 December 2026 · 8:30 PM</p>
+    <div data-reveal><a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Swagat%20Lawn%2C%20Iklehra%2C%20Madhya%20Pradesh" target="_blank" rel="noopener">
+      <span>Get directions</span><i><svg><use href="#ic-arrow"/></svg></i>
+    </a></div>
+    <div class="home" data-reveal>
+      <p class="g-title">Mehndi · Haldi · Sangeet</p>
+      <p>Own Residence, Deendayal Puram, Chhindwara</p>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Deendayal%20Puram%2C%20Chhindwara%2C%20Madhya%20Pradesh" target="_blank" rel="noopener">Directions<svg><use href="#ic-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- 09 · FINALE (dark) -->
+<section class="sec finale dark">
+  <div class="bg"></div>
+  <div class="inner">
+    <div class="stage" data-shape="mono"></div>
+    <h2 class="thanks" data-split>Thank you</h2>
+    <p class="body light" data-reveal>for being a part of our story.</p>
+    <div class="regards" data-reveal>
+      <p>With warm regards</p>
+      <p class="family-name">The Chourasia Family</p>
+    </div>
+    <p class="hi sitaram" data-reveal>॥ सीता राम ॥</p>
+    <div data-reveal><button class="share" id="shareBtn" type="button">Share invitation</button></div>
+  </div>
+</section>
+
+</main>
+
+<button class="music" id="musicBtn" type="button" aria-label="Play or pause music" hidden><span></span><span></span><span></span></button>
+<audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
