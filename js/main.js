@@ -20,6 +20,66 @@
   }
 
   /* =========================================================
+     Line art: inject illustrations, ornate corners, draw-on
+     ========================================================= */
+  const ART = window.ART;
+  if (ART) {
+    if (!reduce) document.documentElement.classList.add('draw');
+    $$('[data-ill]').forEach(el => { const fn = ART[el.dataset.ill]; if (fn) el.innerHTML = fn(); });
+    $$('[data-cover]').forEach(el => { el.innerHTML = ART.cover(); });
+    $$('.ornate').forEach(el => ['tl', 'tr', 'br', 'bl'].forEach(c => el.insertAdjacentHTML('beforeend', ART.corner('orn-c ' + c))));
+  }
+  function prepIll(root) {
+    $$('.ill', root || document).forEach(svg => {
+      if (svg._prep) return;
+      svg._prep = true;
+      $$('.s', svg).forEach((p, i) => { p.setAttribute('pathLength', '1'); p.style.setProperty('--dd', (i * .045).toFixed(3) + 's'); });
+      $$('.f', svg).forEach((p, i) => p.style.setProperty('--dd', (i * .02).toFixed(3) + 's'));
+    });
+  }
+  prepIll();
+  const drawIO = 'IntersectionObserver' in window
+    ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); drawIO.unobserve(e.target); } }), { threshold: .25 })
+    : null;
+  function watchDraw(root) {
+    $$('.ill', root || document).forEach(svg => {
+      if (svg.closest('.intro') || svg.closest('.hero')) return;
+      drawIO ? drawIO.observe(svg) : svg.classList.add('on');
+    });
+  }
+
+  /* hero frame: rounded rectangle + Mughal arch, sized to the screen */
+  function drawHeroArch() {
+    const el = $('#heroArch');
+    if (!el || !ART) return;
+    const W = el.clientWidth, H = el.clientHeight;
+    if (!W || !H) return;
+    const aW = W - 36, archH = Math.min(aW * .55, H * .32);
+    el.innerHTML = `<svg class="ill" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+      <path class="s" d="M18 1 H${W - 18} Q${W - 1} 1 ${W - 1} 18 V${H - 18} Q${W - 1} ${H - 1} ${W - 18} ${H - 1} H18 Q1 ${H - 1} 1 ${H - 18} V18 Q1 1 18 1Z" opacity=".6"/>
+      <path class="s" d="${ART.archPath(18, 26, aW, H - 44, archH, 6)}"/>
+      <path class="s" d="${ART.archPath(26, 36, aW - 16, H - 62, archH - 10, 6)}" opacity=".45"/>
+      <path class="s" d="M${W / 2} 8 V24"/><circle class="f" cx="${W / 2}" cy="7" r="2.4"/>
+    </svg>`;
+    prepIll(el);
+    if (el._on) $('.ill', el).classList.add('on');
+  }
+  drawHeroArch();
+  if ('ResizeObserver' in window) { let roT; new ResizeObserver(() => { clearTimeout(roT); roT = setTimeout(drawHeroArch, 60); }).observe($('#heroArch')); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawHeroArch);
+  let archT;
+  addEventListener('resize', () => { clearTimeout(archT); archT = setTimeout(() => { drawHeroArch(); drawGarland(); }, 200); });
+
+  function drawGarland() {
+    const el = $('#garland');
+    if (!el || !ART) return;
+    el.innerHTML = ART.garland(el.clientWidth || innerWidth);
+    prepIll(el);
+    if (drawIO) drawIO.observe($('.ill', el)); else $('.ill', el).classList.add('on');
+  }
+  drawGarland();
+
+  /* =========================================================
      Input — pointer or phone tilt, normalised to -1…1 and smoothed
      ========================================================= */
   const tilt = { x: 0, y: 0, tx: 0, ty: 0, gyro: false, lastMove: 0 };
@@ -328,7 +388,7 @@
       cv.width = W; cv.height = H;
       const x = cv.getContext('2d');
       x.fillStyle = '#fff'; x.textAlign = 'center'; x.textBaseline = 'middle';
-      x.font = 'italic 250px "Instrument Serif", Georgia, serif';
+      x.font = '230px "Great Vibes", cursive';
       x.fillText('AJ', W / 2 - 6, H / 2 + 12);
       const d = x.getImageData(0, 0, W, H).data, px = [];
       for (let yy = 0; yy < H; yy += 2) for (let xx = 0; xx < W; xx += 2) if (d[(yy * W + xx) * 4 + 3] > 128) px.push(xx, yy);
@@ -369,7 +429,7 @@
     const cache = {};
     const pts = key => cache[key] || (cache[key] = SH[key].gen());
     if (document.fonts && document.fonts.load) {
-      document.fonts.load('italic 250px "Instrument Serif"').then(() => { delete cache.mono; }).catch(() => {});
+      document.fonts.load('230px "Great Vibes"').then(() => { delete cache.mono; }).catch(() => {});
     }
 
     /* ---------- ambient dust spread through the visible volume ---------- */
@@ -484,36 +544,35 @@
   if (!GL) document.documentElement.classList.add('no-gl');
 
   /* =========================================================
-     Opening card
+     Opening · gatefold card with a gold seal
      ========================================================= */
   const intro = $('#intro'), card = $('#card3d'), cardShadow = $('#cardShadow');
-  let introRAF = 0;
+  const flapL = $('.gc-l'), flapR = $('.gc-r'), seal = $('#openBtn');
+  requestAnimationFrame(() => $$('.intro .ill').forEach(s => s.classList.add('on')));
+  if (hasGSAP) gsap.set(seal, { z: 6 });
+  let introRAF = 0, introTilt = true;
   (function introLoop(now) {
     const t = (now || 0) / 1000;
-    const live = performance.now() - tilt.lastMove < 2500;
-    const ix = live ? tilt.x : Math.sin(t * .7) * .4;
-    const iy = live ? tilt.y : Math.cos(t * .55) * .3;
-    card.style.setProperty('--ry', (ix * 16).toFixed(2) + 'deg');
-    card.style.setProperty('--rx', (-iy * 13).toFixed(2) + 'deg');
-    card.style.setProperty('--sx', (50 + ix * 45).toFixed(1) + '%');
-    card.style.setProperty('--sy', (30 + iy * 45).toFixed(1) + '%');
+    if (introTilt) {
+      const live = performance.now() - tilt.lastMove < 2500;
+      const ix = live ? tilt.x : Math.sin(t * .7) * .4;
+      const iy = live ? tilt.y : Math.cos(t * .55) * .3;
+      card.style.setProperty('--ry', (ix * 15).toFixed(2) + 'deg');
+      card.style.setProperty('--rx', (-iy * 12).toFixed(2) + 'deg');
+    }
     const fl = Math.sin(t * 1.3);
     card.style.translate = `0 ${(fl * 6).toFixed(2)}px`;
     cardShadow.style.transform = `scale(${(1 - fl * .06).toFixed(3)})`;
-    cardShadow.style.opacity = (.8 - fl * .15).toFixed(2);
     introRAF = requestAnimationFrame(introLoop);
   })();
 
-  // pre-hide hero so it can bloom in as the card flies away
-  const heroChars = $$('[data-split="hero"]').flatMap(splitChars);
-  if (hasGSAP && !reduce) {
-    gsap.set(heroChars, { yPercent: 105, rotateX: -85, opacity: 0 });
-    gsap.set('[data-hero]', { opacity: 0, y: 24, filter: 'blur(8px)' });
-  }
+  if (hasGSAP && !reduce) gsap.set('[data-hero]', { opacity: 0, y: 24, filter: 'blur(8px)' });
   function heroIn() {
+    const arch = $('#heroArch');
+    if (arch) { arch._on = true; const s = $('.ill', arch); if (s) s.classList.add('on'); }
+    $$('.hero .bell .ill').forEach(s => s.classList.add('on'));
     if (!hasGSAP || reduce) return;
     gsap.to('[data-hero]', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.3, stagger: .12, ease: 'power3.out', clearProps: 'filter' });
-    gsap.to(heroChars, { yPercent: 0, rotateX: 0, opacity: 1, duration: 1.4, stagger: .055, ease: 'expo.out', delay: .2 });
   }
 
   let isOpen = false;
@@ -529,6 +588,8 @@
       intro.remove();
       document.body.classList.remove('is-locked');
       if (GL) GL.open();
+      watchDraw();
+      initChip();
       initScroll();
     };
     if (instant || !hasGSAP || reduce) {
@@ -537,18 +598,47 @@
       finish();
       return;
     }
-    cancelAnimationFrame(introRAF);
+    introTilt = false;
     const tl = gsap.timeline({ onComplete: finish });
-    tl.to('#ringFg', { strokeDashoffset: 0, duration: .6, ease: 'power2.inOut' })
-      .to('.open-btn, .intro-hint', { opacity: 0, duration: .35, ease: 'power2.in' }, '-=.05')
-      .to(card, { rotationX: 0, rotationY: 0, duration: .35, ease: 'power2.out' }, '<')
-      .add(() => { if (GL) GL.open(); }, '-=.05')
-      .to(card, { z: 560, opacity: 0, duration: 1.05, ease: 'power3.in' })
-      .to(cardShadow, { opacity: 0, scale: .4, duration: .5 }, '<')
-      .to(intro, { opacity: 0, duration: .55, ease: 'power1.out' }, '-=.5')
+    tl.to(card, { '--rx': '0deg', '--ry': '0deg', duration: .45, ease: 'power2.out' })
+      .to('#ringFg', { strokeDashoffset: 0, duration: .55, ease: 'power2.inOut' }, '<')
+      .to('#introHint', { opacity: 0, duration: .3 }, '<')
+      .to(seal, { scale: .2, rotation: 120, opacity: 0, duration: .45, ease: 'back.in(1.7)' })
+      .to('#scene', { scale: .8, duration: 1.35, ease: 'power3.inOut' }, '-=.05')
+      .to(flapL, { rotationY: -128, duration: 1.35, ease: 'power3.inOut' }, '<')
+      .to(flapR, { rotationY: 128, duration: 1.35, ease: 'power3.inOut' }, '<')
+      .from('.gc-content > *', { y: 14, opacity: 0, stagger: .08, duration: .7, ease: 'power2.out' }, '-=.7')
+      .add(() => { if (GL) GL.open(); }, '+=.85')
+      .to(card, { z: 520, opacity: 0, duration: 1, ease: 'power3.in' })
+      .to(cardShadow, { opacity: 0, duration: .4 }, '<')
+      .to(intro, { opacity: 0, duration: .55, ease: 'power1.out' }, '-=.45')
       .add(heroIn, '-=.45');
   }
-  $('#openBtn').addEventListener('click', () => openInvite(false));
+  seal.addEventListener('click', () => openInvite(false));
+
+  /* =========================================================
+     Floating chapter indicator
+     ========================================================= */
+  function initChip() {
+    const chip = $('#chip'), no = $('#chipNo'), lb = $('#chipLabel');
+    const secs = $$('[data-chapter]');
+    if (!('IntersectionObserver' in window) || !secs.length) return;
+    const live = new Set();
+    const pick = () => {
+      let cur = null;
+      secs.forEach(s => { if (live.has(s)) cur = s; });
+      if (!cur || cur.dataset.chapter === '—') { chip.classList.remove('show'); return; }
+      no.textContent = cur.dataset.chapter;
+      lb.textContent = cur.dataset.label;
+      chip.classList.toggle('dark', !!cur.closest('.dark'));
+      chip.classList.add('show');
+    };
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => (e.isIntersecting ? live.add(e.target) : live.delete(e.target)));
+      pick();
+    }, { rootMargin: '-50% 0px -50% 0px' });
+    secs.forEach(s => io.observe(s));
+  }
 
   /* =========================================================
      Scroll choreography
@@ -657,7 +747,7 @@
       ctx.strokeStyle = 'rgba(255,255,255,.18)'; ctx.lineWidth = 1;
       for (let x = -h; x < w; x += 7) { ctx.beginPath(); ctx.moveTo(x, h); ctx.lineTo(x + h, 0); ctx.stroke(); }
       ctx.fillStyle = 'rgba(40,30,15,.82)'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = `italic ${Math.round(h * .2)}px "Instrument Serif", Georgia, serif`;
+      ctx.font = `italic 500 ${Math.round(h * .21)}px "Cormorant Garamond", Georgia, serif`;
       ctx.fillText('Scratch here', w / 2, h * .46);
       ctx.font = `600 ${Math.max(9, Math.round(h * .058))}px Manrope, sans-serif`;
       spaced('TO REVEAL THE DATE', w / 2, h * .64, 2.6);
